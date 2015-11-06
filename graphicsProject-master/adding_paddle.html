@@ -34,10 +34,42 @@
         ,velY: -7
     }
     
+    var paddle = {
+        pWidth: 75
+        ,pHeight: 10
+        ,pX: canvas.width/2     //starting position
+    }
+    //control ball speed
     var dx = 7;
     var dy = -7;
+    //var for keydown and keyup
+    var rightPressed = false;
+    var leftPressed = false;
+    
+    //adding a key down and up event to move the paddle left and right
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("keyup", keyUpHandler, false);
+	
+	function keyDownHandler(e) {
+        if(e.keyCode == 39) {
+            rightPressed = true;
+        }
+        else if(e.keyCode == 37) {
+            leftPressed = true;
+        }
+    }
+    function keyUpHandler(e) {
+        if(e.keyCode == 39) {
+            rightPressed = false;
+        }
+        else if(e.keyCode == 37) {
+            leftPressed = false;
+        }
+    }
 
-    //this is a function to draw a ball
+    
+    
+  //this is a function to draw a ball
     function drawBall() {  
         //draw a filled ball of colour "#FFFF00";
         ctx.beginPath();
@@ -47,12 +79,19 @@
         
     }
     
-    //A function to repeat every time the animation loops.
+    //function to draw the player paddle
+    function drawPaddle() {
+        ctx.beginPath();
+        ctx.rect(paddle.pX, canvas.height-paddle.pHeight, paddle.pWidth, paddle.pHeight);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.closePath();
+    }
+
     function draw() {
-        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
         drawBall();
+        drawPaddle();
 
         if(ball.x + ball.velX > canvas.width-ball.r || ball.x + ball.velX < ball.r) {
             ball.velX =- ball.velX;
@@ -60,14 +99,22 @@
         if(ball.y + ball.velY > canvas.height-ball.r || ball.y + ball.velY < ball.r) {
             ball.velY =- ball.velY;
         }
+        
+        if(rightPressed && paddle.pX < canvas.width-paddle.pWidth) {
+            paddle.pX += 7;
+        }
+        else if(leftPressed && paddle.pX > 0) {
+            paddle.pX -= 7;
+        }
 
         ball.x += ball.velX;
         ball.y += ball.velY;
         
         window.requestAnimationFrame(draw);
+        
     }
 
-        draw();
+    draw();
     
 </script>
 
