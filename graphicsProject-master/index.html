@@ -2,10 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Pong!</title>
+    <title>Brick Breaker</title>
     <style>
     	* { padding: 0; margin: 0; }
-    	canvas { background: #eee; display: block; margin: 0 auto; }
+    	canvas {
+                background: green;
+                display: block;
+                margin: 0 auto;
+        }
     </style>
 </head>
 <body>
@@ -25,9 +29,9 @@
             
             ctx.beginPath();
             ctx.arc(x, y, 10, 0, Math.PI*2);
-            ctx.fillStyle = "#0095DD";
+            ctx.fillStyle = "#FFFF00";
             ctx.fill();
-            //ctx.closePath();
+            
             
         }
 
